@@ -1,0 +1,53 @@
+/*
+Spiral Order Matrix I
+https://www.interviewbit.com/problems/spiral-order-matrix-i/
+*/
+void right(const vector<vector<int> > &A, vector<int> &v, int row, int ini, int fin) {
+    for(int i = ini; i <= fin ; i++){
+          v.push_back(A[row][i]);
+    }
+}
+
+void down(const vector<vector<int> > &A, vector<int> &v, int col, int ini, int fin) {
+    for(int i = ini; i <= fin ; i++){
+          v.push_back(A[i][col]);
+    }
+}
+
+void left(const vector<vector<int> > &A, vector<int> &v, int row, int ini, int fin) {
+    for(int i = ini; i >= fin ; i--){
+          v.push_back(A[row][i]);
+    }
+}
+
+void up(const vector<vector<int> > &A, vector<int> &v, int col, int ini, int fin) {
+    for(int i = ini; i >= fin ; i--){
+          v.push_back(A[i][col]);
+    }
+}
+
+vector<int> Solution::spiralOrder(const vector<vector<int> > &A) {
+	vector<int> result;
+	int row = 0;
+	int rowNum = A.size() - 1;
+	int col = 0;
+	int colNum = A[0].size() - 1;
+    
+    int a = 0;
+    int i = 0;
+	while(true){
+	    if(result.size() ==  A.size()*A[0].size()) break;
+        right(A, result, row + i, col + i, colNum - i); 
+        a++;
+        if(result.size() ==  A.size()*A[0].size()) break;
+        down(A, result, colNum - i, row + a, rowNum - i);
+        if(result.size() ==  A.size()*A[0].size()) break;
+        left(A, result, rowNum - i, colNum - a, col + i);
+        if(result.size() ==  A.size()*A[0].size()) break;
+        up(A, result, col + i, rowNum - a , row + a );
+        i++;
+	}
+	
+	return result;
+
+}
